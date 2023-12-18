@@ -35,7 +35,18 @@ const CounterValue = styled.strong`
 
 const Counter = () => {
   const [counter, dispatch] = useReducer(
-    (counter, addAmount) => counter + addAmount,
+    (counter, action) => {
+      switch (action.type) {
+        case "INCREMENT":
+          return counter + action.payload;
+        case "DECREMENT":
+          return counter - action.payload;
+        case "RESET":
+          return 0;
+        default:
+          return counter;
+      }
+    },
     0
   );
 
@@ -43,10 +54,9 @@ const Counter = () => {
     <div>
       <CounterValue data-testid="counter-value">Count: {counter}</CounterValue>
       <ButtonRow>
-        <Button onClick={() => dispatch(-2)}>-2</Button>
-        <Button onClick={() => dispatch(-1)}>-1</Button>
-        <Button onClick={() => dispatch(1)}>+1</Button>
-        <Button onClick={() => dispatch(2)}>+2</Button>
+        <Button onClick={() => dispatch({ type: "DECREMENT", payload: 1 })}>-1</Button>
+        <Button onClick={() => dispatch({ type: "RESET" })}>Reset</Button>
+        <Button onClick={() => dispatch({ type: "INCREMENT", payload: 1 })}>+1</Button>
       </ButtonRow>
     </div>
   );
