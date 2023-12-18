@@ -1,7 +1,5 @@
 {
-  "name": "aws-codepipeline-demo",
-  "author": "Lucas Chen",
-  "license": "MIT",
+  "name": "counter-app",
   "private": true,
   "devDependencies": {
     "@babel/core": "~7.7.2",
